@@ -1,0 +1,294 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_community",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_max_team_size",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_web_url",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_app_open",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_app_close",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_rsvp_days",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_tracks",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_track_price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_no_winners_track",
+				"type": "uint256"
+			}
+		],
+		"name": "createHackathon",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "hackathonId",
+				"type": "uint256"
+			}
+		],
+		"name": "joinHackathon",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "dob",
+				"type": "string"
+			}
+		],
+		"name": "participantLogin",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "hackathonId",
+				"type": "uint256"
+			}
+		],
+		"name": "getHackathonParticipants",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "hackathons",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "organizer",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "community",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "max_team_size",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "web_url",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "app_open",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "app_close",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "rsvp_days",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "tracks",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "track_price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "no_winners_track",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "organizers",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "email",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "password",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "participants",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "dob",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "resume",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "profession",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "githubLink",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "twitterLink",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "linkedinLink",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "projectCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+
+
+
+
+
+
+
+contract name: 0xA22BC68Df5dD3F5cf7E4fA48Dd9e31dC37D87824

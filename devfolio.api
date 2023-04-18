@@ -3,117 +3,73 @@
 		"inputs": [
 			{
 				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_community",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_max_team_size",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_app_open",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_app_close",
+				"type": "string"
+			}
+		],
+		"name": "createHackathon",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "hackathonId",
+				"type": "uint256"
+			}
+		],
+		"name": "joinHackathon",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
 				"name": "name",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "company_name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "no_ex_code",
-				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "githublink",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "linkedinlink",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "twitterlink",
-				"type": "bool"
-			},
-			{
-				"internalType": "string",
-				"name": "email",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "ph_no",
+				"name": "dob",
 				"type": "string"
 			}
 		],
-		"name": "applyForProject",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_tagline",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_theme",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_max_players",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_app_open",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_app_close",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_venue",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_email",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_phone_number",
-				"type": "string"
-			}
-		],
-		"name": "createProject",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "email",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "password",
-				"type": "string"
-			}
-		],
-		"name": "organizerLogin",
+		"name": "participantLogin",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -124,26 +80,113 @@
 		"type": "constructor"
 	},
 	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "message",
+				"type": "string"
+			}
+		],
+		"name": "HackathonCreated",
+		"type": "event"
+	},
+	{
 		"inputs": [],
-		"name": "login",
+		"name": "getAllHackathons",
 		"outputs": [
 			{
-				"internalType": "enum Devfolio.Login",
+				"internalType": "uint256[]",
 				"name": "",
-				"type": "uint8"
+				"type": "uint256[]"
 			}
 		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "organizer",
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "hackathonId",
+				"type": "uint256"
+			}
+		],
+		"name": "getHackathonParticipantCount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "hackathonId",
+				"type": "uint256"
+			}
+		],
+		"name": "getHackathonParticipants",
+		"outputs": [
+			{
+				"internalType": "address[]",
+				"name": "",
+				"type": "address[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "hackathons",
 		"outputs": [
 			{
 				"internalType": "address",
-				"name": "",
+				"name": "organizer",
 				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "community",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "max_team_size",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "app_open",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "app_close",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -161,11 +204,6 @@
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
 				"name": "email",
 				"type": "string"
 			},
@@ -173,11 +211,6 @@
 				"internalType": "string",
 				"name": "password",
 				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "authorized",
-				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -200,37 +233,32 @@
 			},
 			{
 				"internalType": "string",
-				"name": "company_name",
+				"name": "dob",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "no_ex_code",
-				"type": "string"
-			},
-			{
-				"internalType": "bool",
-				"name": "githublink",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "linkedinlink",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "twitterlink",
-				"type": "bool"
-			},
-			{
-				"internalType": "string",
-				"name": "email",
+				"name": "resume",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "ph_no",
+				"name": "profession",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "githubLink",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "twitterLink",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "linkedinLink",
 				"type": "string"
 			}
 		],
@@ -249,72 +277,5 @@
 		],
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "projects",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "tagline",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "theme",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "max_players",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "app_open",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "app_close",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "venue",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "email",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "phone_number",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
 	}
 ]
-
-
-contract address: 0xB8b47F50D2eBFeFE053E29A871fA6Eb56b7C0827

@@ -1,117 +1,144 @@
-//SPDX-License-Identifier:MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.1;
 
 contract Devfolio {
+
     struct Organizer {
-        string name;
         string email;
         string password;
-        bool authorized;
     }
 
     struct Participant {
         string name;
-        string company_name;
-        string no_ex_code;
-        bool githublink;
-        bool linkedinlink;
-        bool twitterlink;
-        string email;
-        string ph_no;
+        string dob;
+        string resume;
+        string profession;
+        string githubLink;
+        string twitterLink;
+        string linkedinLink;
     }
 
     struct Hackathon {
-        string name;
-        string tagline;
-        string theme;
-        uint256 max_players;
-        uint256 app_open;
-        uint256 app_close;
-        string venue;
-        string email;
-        string phone_number;
+        address organizer;
+        string title;
+        string community;
+        string description;
+        uint max_team_size;
+        string app_open;
+        string app_close;
+        address[] participants;
     }
 
-    address public organizer;
-    uint256 public projectCount;
-    enum Login { Organizer, Participant }
-    Login public login;
-
-    mapping(address => Hackathon[]) public projects;
+    uint256 public projectCount = 0;
+    mapping(uint256 => Hackathon) public hackathons;
     mapping(address => Organizer) public organizers;
     mapping(address => Participant) public participants;
 
     constructor() {
-        organizer = msg.sender;
+        organizers[msg.sender] = Organizer("", "");
     }
 
     modifier onlyOrganizer() {
-        require(login == Login.Organizer, "Access denied. Organizer login required.");
+        require(keccak256(bytes(organizers[msg.sender].email)) != keccak256(bytes("")), "Access denied. Organizer login required.");
         _;
     }
 
     modifier onlyParticipant() {
-        require(login == Login.Participant, "Access denied. Participant login required.");
+        require(keccak256(bytes(participants[msg.sender].name)) != keccak256(bytes("")), "Access denied. Participant login required.");
         _;
     }
 
-    function organizerLogin(string memory email, string memory password) public {
-        require(msg.sender == organizer, "Only the organizer can log in as an organizer.");
-        require(keccak256(bytes(organizers[msg.sender].email)) == keccak256(bytes(email)), "Invalid email.");
-        require(keccak256(bytes(organizers[msg.sender].password)) == keccak256(bytes(password)), "Invalid password.");
-        login = Login.Organizer;
+//     function organizerLogin(string memory email, string memory password) public {
+//     require(organizers[msg.sender].email != "", "Only the organizer can log in as an organizer.");
+//     require(keccak256(bytes(organizers[msg.sender].email)) == keccak256(bytes(email)), "Invalid email.");
+//     require(keccak256(bytes(organizers[msg.sender].password)) == keccak256(bytes(password)), "Invalid password.");
+//     organizers[msg.sender] = Organizer(email, password);
+// }
+
+    
+
+    function participantLogin(string memory name, string memory dob) public {
+        require(keccak256(bytes(participants[msg.sender].name)) == keccak256(bytes(name)), "Invalid name.");
+        require(keccak256(bytes(participants[msg.sender].dob)) == keccak256(bytes(dob)), "Invalid date of birth.");
+        participants[msg.sender] = Participant(name, dob, "", "", "", "", "");
     }
 
-    // function participantLogin(string memory name, string memory dob) public {
-    //     require(keccak256(bytes(participants[msg.sender].name)) == keccak256(bytes(name)), "Invalid name.");
-    //     require(keccak256(bytes(participants[msg.sender].dob)) == keccak256(bytes(dob)), "Invalid date of birth.");
-    //     login = Login.Participant;
+    // function setParticipantAge(uint256 age) public onlyParticipant {
+    //     participants[msg.sender].age = age;
     // }
 
-    function createProject(
-        string memory _name,
-        string memory _tagline,
-        string memory _theme,
-        uint256 _max_players,
-        uint256 _app_open,
-        uint256 _app_close,
-        string memory _venue,
-        string memory _email,
-        string memory _phone_number
-    ) public onlyOrganizer {
-        Hackathon memory newProject = Hackathon(
-            _name,
-            _tagline,
-            _theme,
-            _max_players,
-            _app_open,
-            _app_close,
-            _venue,
-            _email,
-            _phone_number
-        );
-        projects[msg.sender].push(newProject);
+    event HackathonCreated(string message);
+
+function createHackathon(
+    string memory _title,
+    string memory _community,
+    uint _max_team_size,
+    string memory _description,
+    string memory _app_open,
+    string memory _app_close
+    
+) public returns (uint) {
+    Hackathon storage newHackathon = hackathons[projectCount];
+        newHackathon.organizer = msg.sender;
+        newHackathon.title = _title;
+        newHackathon.community = _community;
+        newHackathon.description = _description;
+        newHackathon.max_team_size = _max_team_size;
+        newHackathon.app_open = _app_open;
+        newHackathon.app_close = _app_close;
         projectCount++;
+        emit HackathonCreated("hackathon created successfully");
+        return projectCount - 1;
+    
+    
+}
+
+    function getHackathonParticipants(uint256 hackathonId) public view returns (address[] memory) {
+    Hackathon storage hackathon = hackathons[hackathonId];
+    return hackathon.participants;
     }
 
-    function applyForProject(
-        string memory name,
-        string memory company_name,
-        string memory no_ex_code,
-        bool githublink,
-        bool linkedinlink,
-        bool twitterlink,
-        string memory email,
-        string memory ph_no
-    ) public onlyParticipant {
-        Participant storage participant = participants[msg.sender];
-        participant.name = name;
-        participant.company_name = company_name;
-        participant.no_ex_code = no_ex_code;
-        participant.githublink = githublink;
-        participant.linkedinlink = linkedinlink;
-        participant.twitterlink = twitterlink;
-        participant.email = email;
-        participant.ph_no = ph_no;
-    }
+    function joinHackathon(uint256 hackathonId) public onlyParticipant {
+    require(hackathons[hackathonId].participants.length < hackathons[hackathonId].max_team_size, "Hackathon team is full.");
+    uint256 sandy = uint256(keccak256(abi.encodePacked(hackathons[hackathonId].app_open)));
+    require(sandy <= block.timestamp, "Hackathon registration has not started yet.");
+    uint256 vishal = uint256(keccak256(abi.encodePacked(hackathons[hackathonId].app_close)));
+    require(vishal >= block.timestamp, "Hackathon registration has ended.");
+    require(!isParticipantAlreadyRegistered(hackathonId, msg.sender), "You have already registered for this hackathon.");
+    hackathons[hackathonId].participants.push(msg.sender);
 }
+
+function isParticipantAlreadyRegistered(uint256 hackathonId, address participant) internal view returns (bool) {
+    Hackathon storage hackathon = hackathons[hackathonId];
+    for (uint256 i = 0; i < hackathon.participants.length; i++) {
+        if (hackathon.participants[i] == participant) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+    function getHackathonParticipantCount(uint256 hackathonId) public view returns (uint256) {
+    Hackathon storage hackathon = hackathons[hackathonId];
+    return hackathon.participants.length;
+}
+
+    function getAllHackathons() public view returns (uint256[] memory) {
+    uint256[] memory allHackathons = new uint256[](projectCount);
+    for (uint256 i = 0; i < projectCount; i++) {
+        allHackathons[i] = i;
+    }
+    return allHackathons;
+}
+
+   
+    
+    
+}
+
+
+
+
+
